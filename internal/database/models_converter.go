@@ -19,3 +19,21 @@ func DatabaseFeedToFeed(dbFeed Feed) Feed {
 		UserID:    dbFeed.UserID,
 	}
 }
+
+func DatabaseFeedsToFeeds(dbFeeds []Feed) []Feed {
+	feeds := []Feed{}
+	for _, dbFeed := range dbFeeds {
+		feeds = append(feeds, dbFeed)
+	}
+	return feeds
+}
+
+func DatabaseFeedFollowToFeedFollow(dbFeedFollow FeedFollow) FeedFollow {
+	return FeedFollow{
+		ID:        dbFeedFollow.ID,
+		CreatedAt: dbFeedFollow.CreatedAt,
+		UpdatedAt: dbFeedFollow.UpdatedAt,
+		UserID:    dbFeedFollow.UserID,
+		FeedID:    dbFeedFollow.FeedID,
+	}
+}
