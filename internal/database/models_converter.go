@@ -37,3 +37,33 @@ func DatabaseFeedFollowToFeedFollow(dbFeedFollow FeedFollow) FeedFollow {
 		FeedID:    dbFeedFollow.FeedID,
 	}
 }
+
+func DatabaseFeedFollowsToFeedFollows(dbFeedFollows []FeedFollow) []FeedFollow {
+	feedFollows := []FeedFollow{}
+	for _, dbFeedFollow := range dbFeedFollows {
+		feedFollows = append(feedFollows, DatabaseFeedFollowToFeedFollow(dbFeedFollow))
+	}
+	return feedFollows
+}
+
+func DatabasePostToPost(dbPost Post) Post {
+
+	return Post{
+		ID:          dbPost.ID,
+		CreatedAt:   dbPost.CreatedAt,
+		UpdatedAt:   dbPost.UpdatedAt,
+		Title:       dbPost.Title,
+		Description: dbPost.Description,
+		PublishedAt: dbPost.PublishedAt,
+		Url:         dbPost.Url,
+		FeedID:      dbPost.FeedID,
+	}
+}
+
+func DatabasePostsToPosts(dbPosts []Post) []Post {
+	posts := []Post{}
+	for _, dbPost := range dbPosts {
+		posts = append(posts, dbPost)
+	}
+	return posts
+}

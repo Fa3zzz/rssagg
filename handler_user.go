@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/Fa3zzz/rssagg/internal/database"
-	// "github.com/Fa3zzz/rssagg/internal/database/auth"
 	"github.com/google/uuid"
 )
 
@@ -38,4 +37,18 @@ func (apiCfg apiConfig) handlerCreateUser(w http.ResponseWriter, r *http.Request
 
 func (apiCfg *apiConfig) handlerGetUser(w http.ResponseWriter, r *http.Request, user database.User) {
 	respondWithJson(w, 200, database.DatabaseUserToUser(user))
+}
+
+func (apiCfg *apiConfig) handlerGetPostForUser(w http.ResponseWriter, r *http.Request, user database.User) {
+	posts, err := apiCfg.DB.GetPostsForUser(r.Context(), database.GetPostsForUserParams{
+		UserID: user.ID,
+		Limit:  10,
+	})
+	if err != nil {
+		respondWithError(w, 400, fmt.Sprintf("Could not get posts: %v", err))
+		return
+	}
+
+	respondWithJson(w, 200, database.DatabasePostsToPosts(posts))
+
 }
